@@ -1,10 +1,12 @@
 <template>
   <div class="weather-list">
-    <div class="listWeather" v-for="(weatherDay, index) in weatherList" :key="index">
-        <div class="tittle">{{weatherDay.datetime}}</div>
-        <div class="content">
-            <img :src="'https://www.weatherbit.io/static/img/icons/' + weatherDay.weather.icon + '.png'" alt="" class="icon-weather">
-            <span class="temp">{{weatherDay.temp}} °C</span>
+    <div class="listWeather" >
+        <div class="itemWeather" v-for="(weatherDay, index) in weatherList" :key="index">
+            <div class="tittle">{{weatherDay.datetime}}</div>
+            <div class="content">
+                <img :src="'https://www.weatherbit.io/static/img/icons/' + weatherDay.weather.icon + '.png'" alt="" class="icon-weather">
+                <span class="temp">{{weatherDay.temp}} °C</span>
+            </div>
         </div>
     </div>
   </div>
@@ -53,15 +55,41 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .weather-list{
-    height: 100%;
     width: 50%;
     background-color: coral;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
 }
 .listWeather{
-    display: flex;
+    background-color:  aliceblue;
+    background-color: blue;
+    border-radius: 5px;
+    width: 100%;
+    max-height: calc(100vh - 150px);
+    overflow-y: scroll;
+}
+/* ẩn thanh cuộn dọc */
+::-webkit-scrollbar { 
+    display: none; 
+}
+.itemWeather{
+    margin: 16px;
+    padding: 16px;
+    border-radius: 16px;
+    background-color: #fff;
 }
 img {
     width: 50px;
     height: 50px;
+}
+.tittle{
+    display: flex;
+    align-items: flex-start;
+}
+.content{
+    display: flex;
+    align-items: flex-start;
 }
 </style>
