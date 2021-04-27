@@ -11,6 +11,10 @@ import Content from './components/ViewWeather/Content'
 
 export default {
   name: 'App',
+  created() {
+    // this.getApi();
+    this.$store.dispatch('getWeather');
+  },
   components: {
     Tittle,
     Content
@@ -29,8 +33,8 @@ body{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: rgb(68, 68, 175);
+  background: linear-gradient(to bottom, #2b1ee6 0%, #c0bfec 100%);
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 }
 </style>

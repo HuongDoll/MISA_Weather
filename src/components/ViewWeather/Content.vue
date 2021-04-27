@@ -30,8 +30,13 @@ export default {
 <style scoped>
 .content{
     width: 100%;
-    height: calc(100vh - 80px);
-    background-color: rgb(69, 165, 49);
     display: flex;
+    box-sizing: border-box;
+}
+@media (max-width:750px){
+  .content{
+    display: block;
+  }
+
 }
 </style>
