@@ -8,6 +8,8 @@ import moment from 'moment-timezone'
 import Autocomplete from '@trevoreyre/autocomplete-vue'
 import '@trevoreyre/autocomplete-vue/dist/style.css'
 
+import VuetifyGoogleAutocomplete from 'vuetify-google-autocomplete'
+
 Vue.use(Autocomplete)
 
 Vue.config.productionTip = false
@@ -55,6 +57,10 @@ Vue.prototype.$code = {
     804: "Mây u ám",
     900: "Lượng mưa không xác định",
 }
+Vue.use(VuetifyGoogleAutocomplete, {
+    apiKey: 'AIzaSyB8VeoLGLx1IOc9i6aMsAONyLM1cgYQfxc', // Can also be an object. E.g, for Google Maps Premium API, pass `{ client: <YOUR-CLIENT-ID> }`
+    version: '2.0.0', // Optional
+});
 
 new Vue({
     render: h => h(App),

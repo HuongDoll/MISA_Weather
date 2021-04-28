@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :style="background">
     <Tittle />
     <Content />
   </div>
@@ -8,12 +8,28 @@
 <script>
 import Tittle from './components/ViewWeather/Tittle'
 import Content from './components/ViewWeather/Content'
-
 export default {
   name: 'App',
   created() {
-    // this.getApi();
-    this.$store.dispatch('getWeather');
+    let location = {
+      "lat" : "21.0278",
+      "lon" : "105.8342"
+    }
+    this.$store.dispatch('getWeather', location);
+  },
+  computed: {
+    background(){
+      var today = this.$store.getters.getImg;
+      console.log(today);
+      let bgImage = require('@/assets/bg/'+today+'.jpg');
+      return {
+        backgroundImage:`url("${bgImage}")`,
+        }
+    },
+  },
+  data() {
+    return {
+    };
   },
   components: {
     Tittle,
@@ -33,7 +49,10 @@ body{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background: linear-gradient(to bottom, #2b1ee6 0%, #c0bfec 100%);
+  background-image: url('assets/bg/2.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
   width: 100%;
   min-height: 100vh;
 }

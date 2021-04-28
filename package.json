@@ -23,6 +23,7 @@
         "vue-axios": "^3.2.4",
         "vue-moment": "^4.1.0",
         "vue-place-autocomplete": "^0.5.3",
+        "vuetify-google-autocomplete": "^2.0.4",
         "vuex": "^3.6.2"
     },
     "devDependencies": {
@@ -30,9 +31,12 @@
         "@vue/cli-plugin-eslint": "~4.5.0",
         "@vue/cli-service": "~4.5.0",
         "babel-eslint": "^10.1.0",
+        "deepmerge": "^4.2.2",
         "eslint": "^6.7.2",
         "eslint-plugin-vue": "^6.2.2",
+        "fibers": "^5.0.0",
         "node-sass": "^5.0.0",
+        "sass": "^1.32.11",
         "sass-loader": "^10.1.1",
         "vue-template-compiler": "^2.6.11"
     },

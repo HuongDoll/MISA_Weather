@@ -5,9 +5,10 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        city: "",
+        city: "Hanoi",
         weatherToday: "",
-        listWeather: ""
+        listWeather: "",
+        img: 2
     },
     getters: {
         getCity(state) {
@@ -18,24 +19,32 @@ const store = new Vuex.Store({
         },
         getListWeather(state) {
             return state.listWeather;
+        },
+        getImg(state) {
+            return state.img;
         }
 
     },
     mutations: {
         setWeather(state, payload) {
-            state.city = payload.city_name;
             state.weatherToday = payload.data[0];
             state.listWeather = payload.data.slice(1, 8);
-
+            if (payload.data[0].weather.code > 802) {
+                state.img = 9;
+            } else {
+                state.img = ((payload.data[0].weather.code - payload.data[0].weather.code % 100) / 100);
+            }
         },
-
+        setCity(state, city) {
+            state.city = city;
+        }
     },
     actions: {
-        getWeather(context) {
+        getWeather(context, location) {
             const options = {
                 method: "GET",
                 url: " https://api.weatherbit.io/v2.0/forecast/daily",
-                params: { lat: "21.0278", lon: "105.8342", days: 16, key: "7d2ecceb4a7b43799bfa309c965de5eb" },
+                params: { lat: location.lat, lon: location.lon, days: 16, key: "7d2ecceb4a7b43799bfa309c965de5eb" },
 
             };
 
@@ -51,7 +60,9 @@ const store = new Vuex.Store({
 
 
         },
-
+        getCity(context, city) {
+            context.commit("setCity", city);
+        }
     }
 })
 

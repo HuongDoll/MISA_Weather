@@ -15,43 +15,39 @@
             class="icon-weather"
           />
           <div class="temperature">
-            <div class="temp">{{ weatherDay.temp }} °C</div>
+            <div class="temp" :style="temp(weatherDay.temp)">{{ weatherDay.temp }} °C</div>
             <div class="tempdatail" title="Nhiệt độ cao nhất">
               <img
                 class="icon-img"
                 src="../../assets/thermometer-full-solid.svg"
                 alt=""
-              />
-              {{ weatherDay.max_temp }}°C
+              />Cao nhất: <span class="weight " :style="temp(weatherDay.max_temp)">{{ weatherDay.max_temp }}°C</span>
             </div>
             <div title="Nhiệt độ thấp nhất">
               <img
                 class="icon-img"
                 src="../../assets/thermometer-quarter-solid.svg"
                 alt=""
-              />
-              {{ weatherDay.min_temp }}°C
+              />Thấp nhất: <span class="weight" :style="temp(weatherDay.min_temp)">{{ weatherDay.min_temp }}°C</span>
             </div>
           </div>
         </div>
         <div class="description">{{$code[weatherDay.weather.code]}}</div>
         <div class="detail">
           <div class="app_temp">
-            Cảm giác như: {{ weatherDay.app_min_temp }}°C -
-            {{ weatherDay.app_max_temp }}°C
+            Cảm nhận: <span class="weight" :style="temp(weatherDay.app_min_temp)">{{ weatherDay.app_min_temp }}°C</span> - <span class="weight" :style="temp(weatherDay.app_max_temp)">{{ weatherDay.app_max_temp }}°C</span>
           </div>
           <div class="wind">
             <div class="width-haf" title="Vận tốc gió">
-              <img class="icon-img" src="../../assets/wind-solid.svg" alt="" />
-              {{ weatherDay.wind_spd }} (m/s)
+              <img class="icon-img" src="../../assets/wind-solid.svg" alt="" />Tốc độ gió: <span class="weight">{{ weatherDay.wind_spd }} (m/s)</span>
             </div>
             <div class="width-haf" title="Gió giật">
               <img
                 class="icon-img"
                 src="../../assets/long-arrow-alt-right-solid.svg"
                 alt=""
-              />
-              {{ weatherDay.wind_gust_spd }}(m/s)
+              />Giật:
+              <span class="weight">{{ weatherDay.wind_gust_spd }}(m/s)</span>
             </div>
           </div>
           <div class="rain">
@@ -60,44 +56,47 @@
                 class="icon-img"
                 src="../../assets/cloud-showers-heavy-solid.svg"
                 alt=""
-              />
-              {{ weatherDay.pop }}%
+              />Khả năng mưa:
+              <span class="weight">{{ weatherDay.pop }}%</span>
             </div>
             <div class="width-haf" title="Lượng mưa">
-              <img class="icon-img" src="../../assets/tint-solid.svg" alt="" />
-              {{ weatherDay.precip }} mm
+              <img class="icon-img" src="../../assets/tint-solid.svg" alt="" />Lượng mưa:
+              <span class="weight">{{ weatherDay.precip }} mm</span>
             </div>
           </div>
           <div class="clouds" title="Mức độ bao phủ của mây">
-            <img class="icon-img" src="../../assets/cloud-solid.svg" alt="" />
-            {{ weatherDay.clouds }}%
+            <img class="icon-img" src="../../assets/cloud-solid.svg" alt="" />Mức độ bao phủ của mây: 
+            <span class="weight">{{ weatherDay.clouds }}%</span>
           </div>
-          <div class="uv" title="Tia uv">
-            <img class="icon-img" src="../../assets/ultraviolet.png" alt="" />
-            {{ weatherDay.uv }}
+          <div class="moon">
+            <div class="uv width-haf" title="Tia uv">
+              <img class="icon-img" src="../../assets/ultraviolet.png" alt="" />UV: 
+              <span class="weight">{{ weatherDay.uv }}</span>
+            </div>
+            <div class="ozone width-haf" title="Ozone">
+              <img class="icon-img" src="../../assets/ozone.png" alt="" />Ozone: 
+              <span class="weight">{{ weatherDay.ozone }}</span>
+            </div>
           </div>
-          <div class="ozone" title="Ozone">
-            <img class="icon-img" src="../../assets/ozone.png" alt="" />
-            {{ weatherDay.ozone }}
-          </div>
+            
           <div class="sun">
             <div class="width-haf" title="Bình minh">
-              <img class="icon-img" src="../../assets/morning.png" alt="" />
-              {{ localTime(weatherDay.sunrise_ts) }}
+              <img class="icon-img" src="../../assets/morning.png" alt="" />Bình minh: 
+              <span class="weight">{{ localTime(weatherDay.sunrise_ts) }}</span>
             </div>
             <div class="width-haf" title="Hoàng hôn">
-              <img class="icon-img" src="../../assets/sunset.png" alt="" />
-              {{ localTime(weatherDay.sunset_ts) }}
+              <img class="icon-img" src="../../assets/sunset.png" alt="" />Hoàng hôn: 
+              <span class="weight">{{ localTime(weatherDay.sunset_ts) }}</span>
             </div>
           </div>
           <div class="moon">
             <div class="width-haf" title="Thời điểm trăng lên">
-              <img class="icon-img" src="../../assets/moonrise.png" alt="" />
-              {{ localTime(weatherDay.moonrise_ts) }}
+              <img class="icon-img" src="../../assets/moonrise.png" alt="" />Trăng lên: 
+              <span class="weight">{{ localTime(weatherDay.moonrise_ts) }}</span>
             </div>
             <div class="width-haf" title="Thời điểm trăng lặn">
-              <img class="icon-img" src="../../assets/moonset.png" alt="" />
-              {{ localTime(weatherDay.moonset_ts) }}
+              <img class="icon-img" src="../../assets/moonset.png" alt="" />Trăng tàn: 
+              <span class="weight">{{ localTime(weatherDay.moonset_ts) }}</span>
             </div>
           </div>
         </div>
@@ -129,17 +128,18 @@ export default {
     formatDay(time) {
       return moment(time).lang("vi").format("dd, DD/MM/YYYY");
     },
-    // translateDescription(text) {
-    //   translate(text, { from: "en", to: "vi" })
-    //     .then((res) => {
-    //       console.log(text)
-    //       return res.text;
-          
-    //     })
-    //     .catch((err) => {
-    //       console.error(err);
-    //     });
-    // },
+    temp(temp){
+      if(temp<22){
+        return {
+          color : 'blue'
+        }
+      }
+      if(temp > 27){
+        return {
+          color : 'red',
+        }
+      }
+    }
   },
 };
 </script>
@@ -165,6 +165,9 @@ export default {
     width: 50%;
   }
 }
+.weight{
+  font-weight: 600;
+}
 .weather-today {
   /* background-color: darkgray; */
   display: flex;
@@ -178,7 +181,7 @@ export default {
   width: 100%;
   height: calc(100vh - 146px);
   min-height: 580px;
-  background-color: #fff;
+  background-color: rgba(253, 253, 253, 0.9);
   align-items: center;
   padding: 24px;
   box-sizing: border-box;
@@ -225,8 +228,9 @@ img {
 }
 .description {
   padding: 8px 0;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 700;
+  color: rgb(148, 42, 42);
 }
 .width-haf {
   width: 50%;

@@ -7,8 +7,8 @@
         :key="index"
         @click="selectDay(index)"
       >
-        <div class="tittle">
-          <!-- {{ weatherDay.datetime.split("-").reverse().join("/") }} -->
+        <div class="tittle weight">
+          
           {{formatDay(weatherDay.datetime)}}
         </div>
         <div class="content flex">
@@ -25,10 +25,10 @@
               />
             </div>
 
-            <div class="temp width-haf">{{ weatherDay.temp }} °C</div>
+            <div class="temp width-haf" :style="temp(weatherDay.temp)">{{ weatherDay.temp }} °C</div>
           </div>
           <div class="description width-haf">
-            {{ $code[weatherDay.weather.code] }}
+            <span class="weight">{{ $code[weatherDay.weather.code] }}</span>
           </div>
         </div>
         <div class="detail" v-show="index == select">
@@ -38,35 +38,35 @@
                 class="icon-img"
                 src="../../assets/thermometer-full-solid.svg"
                 alt=""
-              />
-              {{ weatherDay.max_temp }}°C
+              />Cao nhất: 
+              <span class="weight" :style="temp(weatherDay.max_temp)">{{ weatherDay.max_temp }}°C</span>
             </div>
             <div class="width-haf" title="Nhiệt độ thấp nhất">
               <img
                 class="icon-img"
                 src="../../assets/thermometer-quarter-solid.svg"
                 alt=""
-              />
-              {{ weatherDay.min_temp }}°C
+              />Thấp nhất: 
+              <span class="weight" :style="temp(weatherDay.min_temp)">{{ weatherDay.min_temp }}°C</span>
             </div>
           </div>
 
           <div class="app_temp">
-            Cảm giác như: {{ weatherDay.app_min_temp }}°C -
-            {{ weatherDay.app_max_temp }}°C
+            Cảm nhận: <span class="weight"  :style="temp(weatherDay.app_min_temp)">{{ weatherDay.app_min_temp }}°C</span> -
+            <span class="weight"  :style="temp(weatherDay.app_max_temp)">{{ weatherDay.app_max_temp }}°C</span>
           </div>
           <div class="wind flex">
             <div class="width-haf" title="Tốc độ gió">
-              <img class="icon-img" src="../../assets/wind-solid.svg" alt="" />
-              {{ weatherDay.wind_spd }} (m/s)
+              <img class="icon-img" src="../../assets/wind-solid.svg" alt="" />Tốc độ gió: 
+              <span class="weight">{{ weatherDay.wind_spd }} (m/s)</span>
             </div>
             <div class="width-haf" title="Gió giật">
               <img
                 class="icon-img"
                 src="../../assets/long-arrow-alt-right-solid.svg"
                 alt=""
-              />
-              {{ weatherDay.wind_gust_spd }}(m/s)
+              />Giật: 
+              <span class="weight">{{ weatherDay.wind_gust_spd }}(m/s)</span>
             </div>
           </div>
           <div class="rain flex">
@@ -75,44 +75,47 @@
                 class="icon-img"
                 src="../../assets/cloud-showers-heavy-solid.svg"
                 alt=""
-              />
-              {{ weatherDay.pop }}%
+              />Khả năng mưa: 
+              <span class="weight">{{ weatherDay.pop }}%</span>
             </div>
             <div class="width-haf" title="Lượng mưa">
-              <img class="icon-img" src="../../assets/tint-solid.svg" alt="" />
-              {{ weatherDay.precip }} mm
+              <img class="icon-img" src="../../assets/tint-solid.svg" alt="" />Lượng mưa: 
+              <span class="weight">{{ weatherDay.precip }} mm</span>
             </div>
           </div>
           <div class="clouds" title="Mật độ mây bao phủ">
-            <img class="icon-img" src="../../assets/cloud-solid.svg" alt="" />
-            {{ weatherDay.clouds }}%
+            <img class="icon-img" src="../../assets/cloud-solid.svg" alt="" />Mức độ mây bao phủ: 
+            <span class="weight">{{ weatherDay.clouds }}%</span>
           </div>
-          <div class="uv" title="Tia UV">
-            <img class="icon-img" src="../../assets/ultraviolet.png" alt="" />
-            {{ weatherDay.uv }}
+          <div class="flex">
+            <div class="uv width-haf" title="Tia UV">
+              <img class="icon-img" src="../../assets/ultraviolet.png" alt="" />UV: 
+              <span class="weight">{{ weatherDay.uv }}</span>
+            </div>
+            <div class="ozone width-haf" title="Ozone">
+              <img class="icon-img" src="../../assets/ozone.png" alt="" />Ozone: 
+              <span class="weight">{{ weatherDay.ozone }}</span>
+            </div>
           </div>
-          <div class="ozone" title="Ozone">
-            <img class="icon-img" src="../../assets/ozone.png" alt="" />
-            {{ weatherDay.ozone }}
-          </div>
+          
           <div class="sun flex">
             <div class="width-haf" title="Bình minh">
-              <img class="icon-img" src="../../assets/morning.png" alt="" />
-              {{ localTime(weatherDay.sunrise_ts) }}
+              <img class="icon-img" src="../../assets/morning.png" alt="" />Bình minh: 
+              <span class="weight">{{ localTime(weatherDay.sunrise_ts) }}</span>
             </div>
             <div class="width-haf" title="Hoàng hôn">
-              <img class="icon-img" src="../../assets/sunset.png" alt="" />
-              {{ localTime(weatherDay.sunset_ts) }}
+              <img class="icon-img" src="../../assets/sunset.png" alt="" />Hoàng hôn: 
+              <span class="weight">{{ localTime(weatherDay.sunset_ts) }}</span>
             </div>
           </div>
           <div class="moon flex">
             <div class="width-haf" title="Thời điểm trăng lên">
-              <img class="icon-img" src="../../assets/moonrise.png" alt="" />
-              {{ localTime(weatherDay.moonrise_ts) }}
+              <img class="icon-img" src="../../assets/moonrise.png" alt="" />Trăng lên: 
+              <span class="weight">{{ localTime(weatherDay.moonrise_ts) }}</span>
             </div>
             <div class="width-haf" title="Thời điểm trăng tàn">
-              <img class="icon-img" src="../../assets/moonset.png" alt="" />
-              {{ localTime(weatherDay.moonset_ts) }}
+              <img class="icon-img" src="../../assets/moonset.png" alt="" />Trăng tàn: 
+              <span class="weight">{{ localTime(weatherDay.moonset_ts) }}</span>
             </div>
           </div>
         </div>
@@ -150,6 +153,18 @@ export default {
     formatDay(time){
       return moment(time).lang('vi').format("dd, DD/MM/YYYY");
 
+    },
+    temp(temp){
+      if(temp<22){
+        return {
+          color : 'blue'
+        }
+      }
+      if(temp > 27){
+        return {
+          color : 'red',
+        }
+      }
     }
   },
 };
@@ -175,6 +190,9 @@ export default {
   .weather-list {
     width: 50%;
   }
+}
+.weight{
+  font-weight: 600;
 }
 .point {
   cursor: pointer;
@@ -203,7 +221,7 @@ export default {
 }
 .itemWeather {
   padding: 12px 32px 2px 32px;
-  background-color: #fff;
+  background-color: rgba(253, 253, 253, 0.9);
   border-top: 1px solid rgb(88, 88, 110);
 }
 .itemWeather:hover {
@@ -213,7 +231,7 @@ export default {
 .tittle {
   display: flex;
   align-items: flex-start;
-  font-weight: 300;
+  font-weight: 600;
 }
 .content {
   display: flex;
