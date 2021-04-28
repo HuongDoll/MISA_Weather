@@ -5,8 +5,8 @@
     <div class="searchCity">
       <autocomplete
         :search="search"
-        placeholder="Search Wikipedia"
-        aria-label="Search Wikipedia"
+        placeholder="Tìm kiếm địa điểm"
+        aria-label="Tìm kiếm địa điểm"
         :get-result-value="getResultValue"
         @submit="handleSubmit"
       ></autocomplete>
@@ -32,11 +32,7 @@ export default {
   components: {
     Autocomplete
   },
-  mounted() {
-            // To demonstrate functionality of exposed component functions
-            // Here we make focus on the user input
-            this.$refs.address.focus();
-        },
+  
   methods: {
     search(input) {
       // const url = `${wikiUrl}/w/api.php?${
